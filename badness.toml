@@ -1,0 +1,37 @@
+# badness configuration. All keys are optional; values are defaults or examples.
+
+# Inherit settings from another config; relative paths use this file's directory.
+# extend = "../shared/badness.toml"
+
+# Gitignore-style patterns to skip during directory discovery. `exclude` replaces
+# the built-in default set (`.git/`); `extend-exclude` adds on top of it. Both
+# apply to `format` and `lint`.
+# exclude = [".git/"]
+# extend-exclude = []
+
+[format]
+# line-width = 80  # 0 disables width-based wrapping
+# indent-width = 2
+# item-indent = "hang"  # hang | indent | none
+# wrap = "reflow"  # reflow | stable | sentence | semantic | preserve
+                     # semantic keeps authored and sentence breaks, then wraps to width
+# math-wrap = "auto"  # auto | preserve | single-line | break
+                        # display-math line breaking; auto derives from wrap
+                        # (preserve -> preserve, else break)
+# line-ending = "auto"  # auto | lf | crlf | native
+                          # auto keeps the endings each file was written with
+
+[lint]
+# select = ["..."]  # replaces the default rule set
+# extend-select = []  # adds rules to select or the defaults
+# ignore = []         # rules to disable, including extend-select
+
+# Where the compiler leaves its artifacts, and which file it ran on. Read by the
+# language server only: `.aux` for label/section numbers, the PDF for forward
+# search. Paths are relative to the root document's directory (`root` itself is
+# relative to this file).
+[build]
+aux-dir = "../build/default"
+pdf-dir = "../build/default"
+pdf-filename = "default"
+root = "src/index.tex"

@@ -1,0 +1,49 @@
+{
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/build/default",
+  "latex-workshop.latex.auxDir": "%OUTDIR%",
+  "latex-workshop.latex.jobname": "default",
+  "latex-workshop.latex.recipe.default": "tectonic",
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "tectonic",
+      "tools": [
+        "tectonic"
+      ]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "tectonic",
+      "command": "tectonic",
+      "args": [
+        "-X",
+        "build",
+        "--keep-intermediates",
+        "--keep-logs",
+        "--print"
+      ],
+    }
+  ],
+
+  // building and viewing
+  "latex-workshop.latex.autoBuild.run": "onSave",
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.view.pdf.viewer": "tab",
+
+  // change hash if you change `bundle` in Tectonic.toml
+  "badness.texmf": {
+    "enabled": true,
+    "roots": [
+      "/home/hethon/.cache/tectonic/bundles/data/6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c"
+    ],
+    "useKpsewhich": false,
+  },
+  "[latex]": {
+    "editor.defaultFormatter": "jolars.badness",
+    "editor.formatOnSave": true,
+  },
+  "[bibtex]": {
+    "editor.defaultFormatter": "jolars.badness",
+    "editor.formatOnSave": true,
+  },
+}
