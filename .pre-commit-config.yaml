@@ -6,6 +6,11 @@ default_stages:
   - pre-commit
 
 repos:
+  - repo: builtin
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+
   - repo: https://github.com/jolars/badness-pre-commit
     rev: v0.26.0
     hooks:
