@@ -8,8 +8,20 @@ default_stages:
 repos:
   - repo: builtin
     hooks:
-      - id: trailing-whitespace
+      - id: check-toml
+      - id: check-yaml
+      - id: check-jsonc
+        types: [json]
+        files: '(^|/)(settings|extensions)\.json$'
+        args: [--allow-trailing-commas]
       - id: end-of-file-fixer
+        args: [--check]
+      - id: mixed-line-ending
+        args: [--fix, no]
+      - id: normalize-indentation
+        args: [--check]
+      - id: trailing-whitespace
+        args: [--check]
 
   - repo: https://github.com/jolars/badness-pre-commit
     rev: v0.26.0
