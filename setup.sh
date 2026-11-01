@@ -1,8 +1,18 @@
 #!/usr/bin/env bash
 # Installs tectonic, badness and prek (if missing) and registers the git hooks.
+# Usage: ./setup.sh [--bin-dir DIR]   (DIR: install there, leave shell profiles alone; for CI)
 
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"
+
+if [[ ${1:-} == --bin-dir ]]; then
+  BIN_DIR=${2:?usage: ./setup.sh [--bin-dir DIR]}
+  mkdir -p "$BIN_DIR"
+  export PATH="$BIN_DIR:$PATH"
+  export TECTONIC_UNMANAGED_INSTALL=$BIN_DIR
+  export BADNESS_UNMANAGED_INSTALL=$BIN_DIR
+  export PREK_UNMANAGED_INSTALL=$BIN_DIR
+fi
 
 install_if_missing() {
   local bin=$1 url=$2
