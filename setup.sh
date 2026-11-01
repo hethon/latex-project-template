@@ -12,9 +12,6 @@ install_if_missing() {
     echo "==> Installing $bin"
     curl --proto '=https' --tlsv1.2 -LsSf "$url" | sh
     hash -r
-    command -v "$bin" >/dev/null || {
-        echo "ERROR: $bin not on PATH, open a new terminal and re-run" >&2; exit 1;
-    }
 
     # Just a sanity check
     if ! command -v "$bin" >/dev/null; then
