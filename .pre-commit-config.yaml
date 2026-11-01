@@ -7,8 +7,12 @@ repos:
     rev: v0.26.0
     hooks:
       - id: badness-lint
+        stages:
+          - pre-commit
       - id: badness-format
         args: [--check]
+        stages:
+          - pre-commit
 
   - repo: local
     hooks:
@@ -18,4 +22,5 @@ repos:
         language: system
         pass_filenames: false
         always_run: true
-        stages: [pre-push]
+        stages:
+          - pre-push
