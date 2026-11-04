@@ -23,7 +23,10 @@
 
 [lint]
 # select = ["..."]  # replaces the default rule set
-# extend-select = []  # adds rules to select or the defaults
+extend-select = [
+    "hard-coded-reference",
+    "dash-length",
+]  # adds rules to select or the defaults
 # ignore = []         # rules to disable, including extend-select
 
 # Where the compiler leaves its artifacts, and which file it ran on. Read by the
