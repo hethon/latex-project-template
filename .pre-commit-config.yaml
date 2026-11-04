@@ -24,7 +24,7 @@ repos:
         args: [--check]
 
   - repo: https://github.com/jolars/badness-pre-commit
-    rev: v0.26.0
+    rev: v0.29.0
     hooks:
       - id: badness-lint
       - id: badness-format
