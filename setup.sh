@@ -92,7 +92,7 @@ install_tool() {
     local version=$3
     local var
 
-    if installed_ok "$bin" "$version"; then
+    if [[ -z $BIN_DIR ]] && installed_ok "$bin" "$version"; then
         echo "==> $bin $version ok"
         return 0
     fi
@@ -137,7 +137,8 @@ echo "==> Done."
 
 if [[ -n $BIN_DIR ]]; then
     echo "    Binaries installed in: $BIN_DIR"
+    echo "    Build with: $BIN_DIR/tectonic -X build"
+else
+    echo "    Open a new terminal (and restart VS Code) so the new tools are on PATH."
+    echo "    Build with: tectonic -X build"
 fi
-
-echo "    Open a new terminal (and restart VS Code) so the new tools are on PATH."
-echo "    Build with: tectonic -X build"
