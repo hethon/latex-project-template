@@ -20,33 +20,27 @@ cd "$(dirname "${BASH_SOURCE[0]}")"
 
 BIN_DIR=""
 
-case $# in
-0)
-    # Installers may update shell profiles, but this running shell
-    # cannot see those changes. Add the default location for checks.
-    export PATH="$HOME/.local/bin:$PATH"
-    ;;
-2)
-    [[ $1 == "--bin-dir" ]] || {
-        echo "ERROR: unknown argument: $1" >&2
-        echo "Usage: ./setup.sh [--bin-dir DIR]" >&2
+if [[ ${1:-} == --bin-dir ]]; then
+    [[ -n ${2:-} && $# -eq 2 ]] || {
+        echo "ERROR: --bin-dir requires exactly one directory path" >&2
         exit 1
     }
 
-    [[ -n $2 ]] || {
-        echo "ERROR: --bin-dir requires a directory path" >&2
-        exit 1
-    }
-
-    mkdir -p "$2"
-    BIN_DIR=$(cd "$2" && pwd -P)
+    BIN_DIR=$2
+    mkdir -p "$BIN_DIR"
+    BIN_DIR=$(cd "$BIN_DIR" && pwd -P)
     export PATH="$BIN_DIR:$PATH"
-    ;;
-*)
+
+    echo "==> Using custom binary directory: $BIN_DIR"
+elif [[ $# -eq 0 ]]; then
+    # Installers only edit shell profiles, which this running script can't see,
+    # so add the default install locations here for the checks below.
+    export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$PATH"
+else
+    echo "ERROR: unknown argument: $1" >&2
     echo "Usage: ./setup.sh [--bin-dir DIR]" >&2
     exit 1
-    ;;
-esac
+fi
 
 declare -A TOOLS=(
     # latex engine
