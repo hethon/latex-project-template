@@ -39,10 +39,13 @@ jobs:
           path: tools
           key: tools-${{ runner.os }}-${{ hashFiles('setup.sh') }}
 
-      - name: Install tools and build
+      - name: Install tools
         run: |
           ./setup.sh --bin-dir "$PWD/tools"
-          ./tools/tectonic -X build
+          echo "$PWD/tools" >> "$GITHUB_PATH"
+
+      - name: Build PDF
+        run: tectonic -X build
 
       - name: Upload PDF
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
