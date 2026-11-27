@@ -25,6 +25,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # full history: scripts/diff.sh needs merge-base
+          fetch-depth: 0
 
       - name: Cache Tectonic bundle
         uses: actions/cache@caa296126883cff596d87d8935842f9db880ef25 # v5.1.0
@@ -53,4 +56,21 @@ jobs:
           name: pdf
           path: build/default/default.pdf
           if-no-files-found: error
+          archive: false
+
+      # The diff is a convenience: it must never fail the build. The script
+      # exits 0 without output when src/*.tex has no meaningful change.
+      - name: Build diff PDF
+        continue-on-error: true
+        env:
+          DIFF_BASE: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          DIFF_HEAD: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+        run: scripts/diff.sh "$DIFF_BASE" "$DIFF_HEAD"
+
+      - name: Upload diff PDF
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: diff
+          path: build/diff/diff-*.pdf
+          if-no-files-found: ignore
           archive: false
